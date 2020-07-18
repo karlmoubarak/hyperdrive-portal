@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Network Imaginaries</title>
+    <script src="dat-sdk-bundle.js"></script>
+    <script src="buffer.js"></script>
+    <script src="moment.js"></script>
+    <style>
+        @font-face { font-family: jet; src: url(jetmono.ttf); }
+        *::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+        body, html, h1, p, pre { margin: 0px; }
+        a {
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+        body {
+            background: #f0f0f0;
+            font-family: caption, sans-serif;
+            font-size: 10pt;
+            color: grey;
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            color: rgb(0,0,0,0.2);
+        }
+        .error, .end {
+            margin: 10px;
+            font-size: 8pt;
+            text-align: center;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            padding: 15px;
+            z-index: 100000;
+        }
+        #show {    
+            position: absolute; top: 5px; right: 15px;
+            width: 230px;
+            transition: all .5s ease;
+        }
+        #menu {
+            position: absolute; right: 15px; top: 15px;
+            width: 250px;
+            transition: all .5s ease;
+        }
+        #menu > div {
+            background: #f0f0f0;
+            border: 0.5px solid rgb(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 0px rgb(0, 0, 0, 0.30);
+            margin-bottom: 12px;
+        }
+        #menu > div .title {
+            width: 100%;
+            padding: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+            font-weight: 600;
+        }
+        #info, #stats, #timeline {
+            padding: 8px;
+            border-top: 0.5px solid rgb(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        button {
+            margin-top: 10px;
+            outline: none;
+            color: rgb(0, 0, 0, 0.5);
+            background: rgb(255,255,255,0.4);
+            border: 0.5px solid rgb(0, 0, 0, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:active {
+            filter: brightness(0.8)
+        }
+        .indexItem {
+            padding: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+            border-top: 0.5px solid rgb(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        .indexItem:hover {
+            background: rgb(0, 0, 0, 0.1);
+        }
+        .indicator {
+            margin-left: auto;
+            width: 25px;
+            height: 15px;
+        }
+        #sizeOutput, #timeOutput {
+            color: rgb(0,0,0,0.3);
+            display: block;
+            text-align: center;
+            font-size: 20pt;
+            font-weight: bold;
+            padding: 10px;
+        }
+        input[type="range"] {
+            outline: none;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            margin: -6px;
+        }
+        input[type="range"]:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+        #fileTypes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        #fileTypes .title {
+            border-bottom: 0.5px solid rgb(0, 0, 0, 0.2);
+            margin-bottom: 2px;
+        }
+        .extItem {
+            padding: 4px;
+            margin: 2px;
+            cursor: pointer;
+            border: 0.5px solid rgb(0, 0, 0, 0.2);
+            border-radius: 5px;
+            background: rgb(0, 0, 0, 0.1);
+            text-decoration: line-through;
+        }
+        .extItem.checked {
+            background: none;
+            text-decoration: none;
+        }
+        .extItem:hover {
+            text-decoration: line-through;
+        }
+        main {    
+        }
+        #front, #back {
+            display: none;
+            overflow: scroll;
+            width: 100%;
+            height: 100%;
+        }
+        #front {
+            position: absolute;
+            top: 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #back {
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .visible {
+            display: flex !important;
+        }
+        #announcement {
+            color: rgb(0,0,0,0.1);
+            margin-top: -10vh;
+            overflow: visible;
+            text-align: center;
+            font-size: 25vh;
+        }
+        .feed {
+            width: 350px;
+            max-height: 500px;
+            border: 0.5px solid rgb(0,0,0,0.1);
+            border-radius: 10px;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            overflow: scroll;
+            transition: all 0.5s ease;
+        }
+        .feed > * {
+            padding: 8px;
+        }
+        .feed .header {
+            position: sticky; top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .feed .header .title {
+            padding-left: 5px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .feed .header .title a {
+            color: rgb(0,0,0,0.4);
+            text-decoration: none;
+            cursor: default;
+        }        
+        .feed .header .title a:hover {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .feed .header .reload {
+            padding: 3px;
+            padding-left: 7px;
+            padding-right: 7px;
+            font-weight: bold;
+            border: 0.5px solid rgb(0,0,0,0.1);
+            border-radius: 20px;
+            text-decoration: none;
+        }
+        .feed .header .reload:hover {
+            background: rgb(0,0,0,0.1);
+        }
+        .item {
+/*            flex-shrink: 0;*/
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            overflow: hidden; 
+        }
+        .item .head {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .item .head .path {
+            width: 100%;
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+        .item .head .time, .item .head .author, .item .head .size {
+            flex-shrink: 0;
+            padding-left: 3px;
+            color: rgb(0,0,0,0.5);
+            font-size: 8pt;
+        }
+        .item .head .author u:hover {
+            cursor: pointer;
+            font-style: italic;
+        }
+        .item .head .time, .item .head .author, .item .head .close {
+            display: none;
+        }
+        .item .head .close {
+            margin-left: 10px;
+            margin-right: 5px;
+            color: grey;
+            cursor: pointer;
+        }
+        .item .body {
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .item p, pre, img, video, audio, embed {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .item p, pre {
+            padding: 10px;
+            max-width: 250px;
+            max-height: 250px;
+        }
+        audio {
+            height: 40px;
+            outline: none;
+            mix-blend-mode: darken;
+        }
+        embed {
+            height: 400px;
+        }
+        pre {
+            font-family: 'jet';
+            font-size: 9pt;
+            background: rgb(0, 0, 0, 0.05);
+        }
+        .dir .head .time, .dir .head .size {
+            display: none;
+        }
+        .parent .head .path {
+            text-decoration: none;
+        }
+        #back .item {
+            margin-bottom: 8px;
+            max-height: 350px;
+        }
+        #back .item:last-of-type {
+            margin-bottom: 0px;
+        }
+        #back .item:hover {
+            background: rgb(0, 0, 0, 0.1);
+        }
+        #front .item {
+            position: absolute;
+            max-width: 150px;
+            max-height: 150px;
+        }
+        #front .item:hover {
+            border: 0.5px solid rgb(0, 0, 0, 0.2);
+            box-shadow: -2px 2px 10px 5px rgb(0, 0, 0, 0.2);
+        }
+        #front .item .head .path {
+            text-align: center;
+        }
+        #front .item .head .time, #front .item .head .size, #front .item .head .author {
+            display: none;
+        }
+        #front .parent {
+            display: none;
+        }
+        .expanded {
+            max-width: 60vw !important;
+            max-height: 60vh !important;
+            background: #dfdfdf;
+            border: 0.5px solid rgb(0, 0, 0, 0.2);
+        }
+        .expanded .head .time, .expanded .head .size, .expanded .head .close {
+            display: block !important;
+        }
+        .expanded .body {
+            min-height: 50px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .expanded embed {
+            height: 80vh;
+            width: 600px;
+        }
+        .expanded p, .expanded pre {
+            max-width: 500px;
+            max-height: 800px;
+            overflow: scroll;
+        }
+        #back .expanded embed {
+            height: 300px;
+        }
+        #back .expanded p, #back .expanded pre {
+            max-height: 300px;
+        }
+        #front .expanded {
+            box-shadow: -5px 5px 30px 5px rgb(0, 0, 0, 0.2);
+        }
+        #front .item.expanded .head .path {
+            width: auto;
+            text-align: left;
+            margin-right: auto;
+        }
+        #front .item.expanded .head .author {
+            display:  block;
+        }
+        .hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        #menu.hidden {
+            opacity: 1;
+            transform: none;
+            top: -100vh;
+        }
+        .feed .item.hidden, .feed .item.hidden * {
+            height: 0px;
+            border: none;
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+        .item .body *.hidden {
+            height: 0;
+            width: 0;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Network Imaginaries</h1>
+        <div id="show" class="end">Press the "S" key to toggle the sidebar and the "V" key to switch views.</div>
+        <div id="menu">
+            <div id="info">
+                <p class="end">Press the "S" key to toggle the sidebar and the "V" key to switch views.</p>
+                <button id="flip">Scattered View</button>
+            </div>
+            <div class="index" id="serverIndex">
+                <p class="title">Servers</p>
+            </div>
+            <div>
+                <p class="title">Network</p>
+                <div id="stats">
+                    <div id="peers">Peers: 0</div>
+                    <div>You are seeding: <span id="sizeOutput">0.00 MB</span></div>
+                    <input id="sizeSlider" type="range" min="0" max="10000000" value="000000">
+                    <div class="end">Keep this tab open to keep these files online. You can vary your storage contribution with the slider above. If you are having connectivity issues, try refreshing the page or clicking the button below.</div>
+                    <button id="retry">Force Reconnect</button>
+                </div>
+            </div>
+            <div>
+                <p class="title">Timeline</p>
+                <div id="timeline">
+                    <div><center>You are viewing items added before: <span id="timeOutput">Today</span></center></div>
+                    <input id="timeSlider" type="range" min="0" max="100" value="100">
+                </div>
+            </div>
+            <div class="index" id="fileTypes">
+                <p class="title">File Types</p>
+            </div>       
+        </div>
+    </nav>
+    <main>
+        <div id="back" class="visible"></div>
+        <div id="front">
+            <div id="announcement"></div>
+        </div>
+    </main>
+    <script src="index.js" type="text/javascript"></script>
+</body>
+</html>
