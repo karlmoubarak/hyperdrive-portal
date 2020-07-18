@@ -19,6 +19,7 @@ const SDK = window.datSDK,
     sizeOutput = $('sizeOutput'),
     timeOutput = $('timeOutput'),
     refreshButton = $('retry'),
+    styleElement = document.querySelector('style')
 
     keys = [ 
         'hyper://6e12aeea634b778e7ba4e1adb49ac70416ccde35e0193767651c429b863fd4ff/', // jeroen
@@ -293,12 +294,13 @@ async function collapseItem(logItem, feedItem, initialTop, initialLeft) {
 }
     
 async function styleItems(archive, info) {
-    const styleElement = document.getElementsByTagName('style')[0]
-    const data = await archive.readFile('/styles.css', 'utf8')
-    const prefix = `.${info.title.split(' ').join('')}`
-    const cleandata = data.replace(/\r?\n|\r/g, '').replace(/\s\s+/g, ' ')
-    let styleDeclarations = cleandata.split(/[}{]/).filter(Boolean)
-    let selectors = [], styles = []
+    const data = await archive.readFile('/styles.css', 'utf8'),
+          prefix = `.${info.title.split(' ').join('')}`,
+          comments = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, returns = /\r?\n|\r/g, spaces = /\s\s+/g,
+          cleandata = data.replace(comments, '').replace(returns, '').replace(spaces, ' '),
+          styleDeclarations = cleandata.split(/[}{]/).filter(Boolean),
+          selectors = [], styles = []
+    console.log(cleandata)
     for (s = 0; s < styleDeclarations.length; s += 2) { selectors.push(styleDeclarations[s]) }
     for (s = 1; s < styleDeclarations.length; s += 2) { styles.push(styleDeclarations[s]) }
     selectors.forEach((selector) => {
