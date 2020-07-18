@@ -33,7 +33,6 @@ const SDK = window.datSDK,
       
     ignoreExt = ['ds_store', 'ignore', 'private'],
     utf8Ext = ['js', 'json', 'java', 'sh', 'html', 'css', 'py', 'webloc'],
-    pseudoClasses = ['hover', 'active', 'focus', 'last', 'visited', 'before', 'after'],
     noPeersMessage = "<p class='end'>No one is seeding these files at the moment. Please try again later.</p>",
     waitMessage = "<p class='end'>wait</p>"
     
@@ -51,6 +50,7 @@ timeSlider.setAttribute('min', 1593388800)
 timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
+    
 document.addEventListener('keydown', () => { 
     event.keyCode === 86 ? toggleView() :
     event.keyCode === 83 ? toggleMenu() : 0
@@ -74,20 +74,24 @@ listenForNetwork()
 sizeTravel()
 timeTravel()
     
+    
+    
 async function sync(key) {
     const archive = await Hyperdrive(key, { persist: true })
     await archive.ready()
     await reallyReady(archive)
     archives.push(archive)
     const info = JSON.parse(await archive.readFile('index.json', 'utf8'))
+    const dir = await archive.readdir('/')
     const feed = makeFeed(key, info)
     indexFeed(info, feed)
-    await populateFeed(archive, info, feed, '')
+    populateFeed(archive, info, feed, '')
     feed.querySelector('.header .reload').addEventListener('click', async () => { 
-        await populateFeed(archive, info, feed, '') 
+        populateFeed(archive, info, feed, '') 
     })
     populateFront(archive, info, '')
-//    archive.watch('/styles.css', () => { styleItems(archive, info) })
+    if (dir.includes('styles.css')) styleItems(archive, info)
+//    archive.watch('styles.css', () => { styleItems(archive, info) })
 }
     
 async function populateFeed(archive, info, feed, dirpath) {
@@ -101,7 +105,7 @@ async function populateFeed(archive, info, feed, dirpath) {
         const path = item === parentDirPath ? parentDirPath : `${dirpath}/${item}`,
               logItem = await makeLogItem(archive, info, path),
               feedItem = makeFeedItem(logItem)
-        if (!(ignoreExt.some(e => logItem.ext.includes(e))) && (path != '/PRIVATE')) {
+        if (!(ignoreExt.includes(logItem.ext)) && (path != '/PRIVATE')) {
             mainLog.push(logItem)
             indexExt(logItem.ext)
             if (logItem.isDir) { 
@@ -120,7 +124,6 @@ async function populateFeed(archive, info, feed, dirpath) {
             }
         }
     }
-    styleItems(archive, info)
 }
 function indexFeed(info, feed) {
     const indexItem = document.createElement('p')
@@ -212,7 +215,7 @@ async function populateFront(archive, info, dirpath, parentX, parentY) {
               logItem = await makeLogItem(archive, info, path),
               feedItem = makeFeedItem(logItem)
         feedItem.addEventListener('mouseenter', () => { bringToFront(feedItem) })
-        if (!(ignoreExt.some(e => logItem.ext.includes(e))) && (path != '/PRIVATE')) {
+        if (!(ignoreExt.includes(logItem.ext)) && (path != '/PRIVATE')) {
             let [childX, childY] = throwItem(feedItem, frontSide, parentX, parentY)
             if (logItem.isDir) {
                 feedItem.classList.add('dir')
@@ -225,7 +228,6 @@ async function populateFront(archive, info, dirpath, parentX, parentY) {
             }
         }
     }
-    styleItems(archive, info)
 }
 function throwItem(feedItem, parent, parentX, parentY) {  
     const maxWidth = parentX ? parentX + 300 : window.innerWidth - 100,
@@ -294,27 +296,20 @@ async function collapseItem(logItem, feedItem, initialTop, initialLeft) {
 }
     
 async function styleItems(archive, info) {
+    console.log(`${info.title} is styling`)
     const data = await archive.readFile('/styles.css', 'utf8'),
           prefix = `.${info.title.split(' ').join('')}`,
           comments = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, returns = /\r?\n|\r/g, spaces = /\s\s+/g,
           cleandata = data.replace(comments, '').replace(returns, '').replace(spaces, ' '),
           styleDeclarations = cleandata.split(/[}{]/).filter(Boolean),
           selectors = [], styles = []
-    console.log(cleandata)
     for (s = 0; s < styleDeclarations.length; s += 2) { selectors.push(styleDeclarations[s]) }
     for (s = 1; s < styleDeclarations.length; s += 2) { styles.push(styleDeclarations[s]) }
     selectors.forEach((selector) => {
-        if (pseudoClasses.some(e => selector.includes(e))) { 
-            styleElement.innerHTML += 
-                `${prefix}${selector} {
-                    ${styles[selectors.indexOf(selector)]}
-                }`
-        } else {
-            let elementsToStyle = document.querySelectorAll(prefix+selector)
-            elementsToStyle.forEach((element) => {
-                element.style.cssText += styles[selectors.indexOf(selector)]
-            })
-        }
+        styleElement.innerHTML += 
+            `${prefix}${selector} {
+                ${styles[selectors.indexOf(selector)]}
+            }`
     })
 }  
 async function listenForNetwork() {
@@ -437,7 +432,7 @@ function renderMedia(ext, data) {
         const bodyContents = document.createElement('p')
         bodyContents.appendChild(text)
         return bodyContents
-    } else if (utf8Ext.some(e => ext.includes(e)) || (ext == '')) {
+    } else if (utf8Ext.includes(ext) || (ext == '')) {
         const puredata = (Buffer(data, 'base64')).toString('utf8')
         const code = document.createElement('code')
         if (ext === '') code.classList.add('plaintext')
