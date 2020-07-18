@@ -275,8 +275,16 @@
             max-height: 800px;
             overflow: scroll;
         }
+        #back .item p, #back .item pre, #back .item .md {
+            width: 100%;
+        }
         .md > * {
+            max-height: 100% !important;
+            padding: 10px !important;
             border-radius: 5px;
+        }
+        .md a {
+            color: inherit!important;
         }
         audio {
             height: 40px;
