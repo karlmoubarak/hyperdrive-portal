@@ -4,8 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Network Imaginaries</title>
     <script src="dat-sdk-bundle.js"></script>
+    <script src="marked.min.js"></script>
     <script src="buffer.js"></script>
     <script src="moment.js"></script>
+    <script src="highlight.pack.js"></script>
+    <link rel="stylesheet" href="github.css">
     <style>
         @font-face { font-family: jet; src: url(jetmono.ttf); }
         *::-webkit-scrollbar { display: none; }
@@ -22,7 +25,7 @@
             font-size: 10pt;
             color: grey;
         }
-        h1 {
+        nav h1 {
             width: 100%;
             text-align: center;
             color: rgb(0,0,0,0.2);
@@ -262,14 +265,18 @@
             justify-content: center;
             align-items: center;
         }
-        .item p, pre, img, video, audio, embed {
+        .item p, pre, img, video, audio, embed, {
             width: 100%;
             box-sizing: border-box;
         }
-        .item p, pre {
-            padding: 10px;
-            max-width: 250px;
-            max-height: 250px;
+        .item p, .item pre, .md {
+            padding: 15px;
+            max-width: 500px;
+            max-height: 800px;
+            overflow: scroll;
+        }
+        .md > * {
+            border-radius: 5px;
         }
         audio {
             height: 40px;
@@ -282,7 +289,10 @@
         pre {
             font-family: 'jet';
             font-size: 9pt;
-            background: rgb(0, 0, 0, 0.05);
+            background: rgb(0, 0, 0, 0.03);
+        }
+        code {
+            font-family: 'jet';
         }
         .dir .head .time, .dir .head .size {
             display: none;

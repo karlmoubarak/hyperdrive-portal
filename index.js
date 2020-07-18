@@ -31,7 +31,7 @@ const SDK = window.datSDK,
         ],
       
     ignoreExt = ['ds_store', 'ignore', 'private'],
-    utf8Ext = ['js', 'json', 'java', 'sh', 'html', 'css', 'py', 'md', 'webloc'],
+    utf8Ext = ['js', 'json', 'java', 'sh', 'html', 'css', 'py', 'webloc'],
     pseudoClasses = ['hover', 'active', 'focus', 'last', 'visited', 'before', 'after'],
     noPeersMessage = "<p class='end'>No one is seeding these files at the moment. Please try again later.</p>",
     waitMessage = "<p class='end'>wait</p>"
@@ -447,9 +447,20 @@ function renderMedia(ext, data) {
         bodyContents.appendChild(text)
         return bodyContents
     } else if (utf8Ext.some(e => ext.includes(e)) || (ext == '')) {
-        const code = document.createTextNode((Buffer(data, 'base64')).toString('utf8'))
+        const puredata = (Buffer(data, 'base64')).toString('utf8')
+        const code = document.createElement('code')
+        if (ext === '') code.classList.add('plaintext')
+        code.innerHTML = puredata
         const bodyContents = document.createElement('pre')
         bodyContents.appendChild(code)
+        hljs.highlightBlock(bodyContents)
+        return bodyContents
+    } else if (ext === 'md') {
+        const md = marked((Buffer(data, 'base64')).toString('utf8'))
+        const bodyContents = document.createElement('div')
+        bodyContents.classList.add('md')
+        bodyContents.innerHTML = md
+        Array.from(bodyContents.querySelectorAll('pre code')).forEach((block) => hljs.highlightBlock(block) )
         return bodyContents
     } else if ((ext == 'jpg') || (ext == 'png') || (ext == 'gif') || (ext == 'ico')) {
         const bodyContents = document.createElement('img')
