@@ -40,19 +40,28 @@ let desiredTime = () => { return parseFloat(timeSlider.value) },
     desiredSize = () => { return parseFloat(sizeSlider.value) }, 
     highestZindex = 0,
     fullSize = 0,
+    initialTime = Date.now() / 1000,
     
     archives = [],
     mainLog = [],
     fileTypes = []
 
+timeSlider.setAttribute('min', 1593388800)
+timeSlider.setAttribute('max', initialTime)
+timeSlider.value = initialTime
+timeOutput.innerHTML = moment.unix(initialTime).fromNow()
 document.addEventListener('keydown', () => { 
     event.keyCode === 86 ? toggleView() :
     event.keyCode === 83 ? toggleMenu() : 0
+//    event.keyCode === 40 ? timeTravel() :
+//    event.keyCode === 38 ? timeTravel() : 0
 })
 flip.addEventListener('click', () => { toggleView() })
 refreshButton.addEventListener('click', () => { forceReconnect() })
+    
 sizeSlider.addEventListener('input', () => { sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB') })
 sizeSlider.addEventListener('change', () => { sizeTravel() })
+timeSlider.addEventListener('input', () => { timeTravel() })
     
 announce(`connecting`, 5000)
       
@@ -365,46 +374,26 @@ async function sizeTravel() {
     }
 }
 function timeTravel() {
-    const sortedMainLog = mainLog.sort((a, b) => a.mtime - b.mtime) 
-    const oldestMoment = sortedMainLog[0].mtime - 1
-    const mostRecentMoment = sortedMainLog[sortedMainLog.length-1].mtime
-    timeSlider.setAttribute('min', oldestMoment)
-    timeSlider.setAttribute('max', mostRecentMoment)
-    timeSlider.value = mostRecentMoment
-    timeOutput.innerHTML = moment.unix(mostRecentMoment).fromNow()
-    let initialTime = mostRecentMoment
-    document.addEventListener('keydown', () => { 
-        event.keyCode === 40 ?
-        timeSlider.value -= 100000 :
-        event.keyCode === 38 ?
-        timeSlider.value += 100000 : 0
-        changeTime() 
-    })
-    timeSlider.addEventListener('input', () => {
-       changeTime()
-    })
-    function changeTime() {
-        timeOutput.innerHTML = moment.unix(desiredTime()).fromNow()
-        announce(moment.unix(desiredTime()).fromNow(), 2000)
-        if (initialTime < desiredTime()) {
-            console.log('moving forward in time')
-            let itemsToReappear = sortedMainLog.filter(logItem => logItem.mtime < desiredTime())
-            itemsToReappear.forEach((logItem) => {
-                Array.from(document.getElementsByClassName(logItem.id)).forEach((feedItem) => {
-                    feedItem.classList.remove('hidden')
-                })
+    timeOutput.innerHTML = moment.unix(desiredTime()).fromNow()
+    announce(moment.unix(desiredTime()).fromNow(), 2000)
+    if (initialTime < desiredTime()) {
+        console.log('moving forward in time')
+        let itemsToReappear = mainLog.filter(logItem => logItem.mtime < desiredTime())
+        itemsToReappear.forEach((logItem) => {
+            Array.from(document.getElementsByClassName(logItem.id)).forEach((feedItem) => {
+                feedItem.classList.remove('hidden')
             })
-        } else if (initialTime > desiredTime()) {
-            console.log('moving backwards in time')
-            let itemsToDisappear = sortedMainLog.filter(logItem => logItem.mtime > desiredTime())
-            itemsToDisappear.forEach((logItem) => {
-                Array.from(document.getElementsByClassName(logItem.id)).forEach((feedItem) => {
-                    feedItem.classList.add('hidden')
-                })
+        })
+    } else if (initialTime > desiredTime()) {
+        console.log('moving backwards in time')
+        let itemsToDisappear = mainLog.filter(logItem => logItem.mtime > desiredTime())
+        itemsToDisappear.forEach((logItem) => {
+            Array.from(document.getElementsByClassName(logItem.id)).forEach((feedItem) => {
+                feedItem.classList.add('hidden')
             })
-        }
-        initialTime = desiredTime()
+        })
     }
+    initialTime = desiredTime()
 }
 function indexExt(ext) {
     if (!fileTypes.includes(ext)) {
@@ -522,6 +511,7 @@ function reallyReady(archive, cb) {
     return promise
 }
 async function forceReconnect() {
+    if (archives[0]) archives.forEach( async(archive) => await archive.close() )
     localStorage.clear()
     window.location.reload(true)
 }
