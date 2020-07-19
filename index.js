@@ -22,8 +22,8 @@ const SDK = window.datSDK,
     styleElement = document.querySelector('style')
 
     keys = [ 
-        'hyper://6e12aeea634b778e7ba4e1adb49ac70416ccde35e0193767651c429b863fd4ff/', // jeroen
         'hyper://dd5ad0e8d3ae8026dc61ce92c45db39c0d9c1d0a2d5206ead0e352ef122dfc10/', // karl
+        'hyper://caa42d9316d6f273ebbea028d1307e1e093159fdd78c6047f2c0d14221c8c4de/', // jeroen
         'hyper://eed171b9da743ccbf6452722f72a1b14a5b25115594f56c34cc0a848828fe896/', // angeliki
         'hyper://1f2f00ec6ffcc2e7db9d4586b5b80eac73201a6e2c0add4430c4ed13b7ee76c0/', // dianaband
         'hyper://fb30c8a724fb93e9e3f0209055453f8a672ff01720a33f8111d76382dbfda28a/', // cristina
@@ -82,12 +82,8 @@ sizeSlider.addEventListener('change', () => { sizeTravel() })
 announce(`connecting`, 5000)
       
 for (key of keys) {
-    await sync(key)
-}
-
-listenForNetwork()
-sizeTravel()
-timeTravel()
+    sync(key)
+}    
     
     
     
@@ -106,6 +102,7 @@ async function sync(key) {
     })
     populateFront(archive, info, '')
     if (dir.includes('styles.css')) styleItems(archive, info)
+    listenForNetwork(archive) 
 //    archive.watch('styles.css', () => { styleItems(archive, info) })
 }
     
@@ -327,8 +324,7 @@ async function styleItems(archive, info) {
             }`
     })
 }  
-async function listenForNetwork() {
-    const archive = archives[0]
+async function listenForNetwork(archive) {
     const peers = await archive.peers
     archive.on('peer-add', async (peer) => { 
         peerStatus.innerHTML = `Peers: ${peers.length}`
