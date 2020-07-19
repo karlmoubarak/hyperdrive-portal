@@ -51,10 +51,9 @@ timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
     
-timeSlider.addEventListener('input', () => { initialTime = timeTravel() })
     
 document.addEventListener('keydown', () => { 
-    if (event.keyCode === 86) toggleView()
+         if (event.keyCode === 86) toggleView()
     else if (event.keyCode === 83) toggleMenu()
     else if (event.keyCode === 40) { 
         timeSlider.value = initialTime - 100000 
@@ -64,12 +63,21 @@ document.addEventListener('keydown', () => {
         timeSlider.value = initialTime + 100000 
         initialTime = timeTravel()
     }
+    else if (event.keyCode === 37) {
+        sizeSlider.value -= 1000000
+        sizeTravel()
+    }   
+    else if (event.keyCode === 39) {
+        sizeSlider.value += 1000000
+        sizeTravel()
+        console.log(sizeSlider.value)
+    }
 })
 flip.addEventListener('click', () => { toggleView() })
 refreshButton.addEventListener('click', () => { forceReconnect() })
-    
-sizeSlider.addEventListener('input', () => { sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB') })
+timeSlider.addEventListener('input', () => { initialTime = timeTravel() })
 sizeSlider.addEventListener('change', () => { sizeTravel() })
+//sizeSlider.addEventListener('input', () => { sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB') })
     
 announce(`connecting`, 5000)
       
@@ -376,6 +384,8 @@ async function sizeTravel() {
             }
         })
     }
+    sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB')
+//    return fullSize
 }
 function timeTravel() {
     timeOutput.innerHTML = moment.unix(desiredTime()).fromNow()
