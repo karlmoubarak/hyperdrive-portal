@@ -46,7 +46,7 @@ let desiredTime = () => { return parseFloat(timeSlider.value) },
     mainLog = [],
     fileTypes = []
 
-timeSlider.setAttribute('min', 1594080000)
+timeSlider.setAttribute('min', 1594598400)
 timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
@@ -56,19 +56,19 @@ document.addEventListener('keydown', () => {
          if (event.keyCode === 86) toggleView()
     else if (event.keyCode === 83) toggleMenu()
     else if (event.keyCode === 40) { 
-        timeSlider.value = initialTime - 100000 
+        timeSlider.value = initialTime - 10000 
         initialTime = timeTravel()
     }
     else if (event.keyCode === 38) {
-        timeSlider.value = initialTime + 100000 
+        timeSlider.value = initialTime + 10000 
         initialTime = timeTravel()
     }
     else if (event.keyCode === 37) {
-        sizeSlider.value -= 1000000
+        sizeSlider.value -= 100000
         sizeTravel()
     }   
     else if (event.keyCode === 39) {
-        sizeSlider.value += 1000000
+        sizeSlider.value += 100000
         sizeTravel()
         console.log(sizeSlider.value)
     }
