@@ -51,18 +51,25 @@ timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
     
+timeSlider.addEventListener('input', () => { initialTime = timeTravel() })
+    
 document.addEventListener('keydown', () => { 
-    event.keyCode === 86 ? toggleView() :
-    event.keyCode === 83 ? toggleMenu() : 0
-//    event.keyCode === 40 ? timeTravel() :
-//    event.keyCode === 38 ? timeTravel() : 0
+    if (event.keyCode === 86) toggleView()
+    else if (event.keyCode === 83) toggleMenu()
+    else if (event.keyCode === 40) { 
+        timeSlider.value = initialTime - 100000 
+        initialTime = timeTravel()
+    }
+    else if (event.keyCode === 38) {
+        timeSlider.value = initialTime + 100000 
+        initialTime = timeTravel()
+    }
 })
 flip.addEventListener('click', () => { toggleView() })
 refreshButton.addEventListener('click', () => { forceReconnect() })
     
 sizeSlider.addEventListener('input', () => { sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB') })
 sizeSlider.addEventListener('change', () => { sizeTravel() })
-timeSlider.addEventListener('input', () => { timeTravel() })
     
 announce(`connecting`, 5000)
       
@@ -391,6 +398,7 @@ function timeTravel() {
         })
     }
     initialTime = desiredTime()
+    return initialTime
 }
 function indexExt(ext) {
     if (!fileTypes.includes(ext)) {
