@@ -46,7 +46,7 @@ let desiredTime = () => { return parseFloat(timeSlider.value) },
     mainLog = [],
     fileTypes = []
 
-timeSlider.setAttribute('min', 1593388800)
+timeSlider.setAttribute('min', 1594080000)
 timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
@@ -319,9 +319,11 @@ async function styleItems(archive, info) {
     for (s = 1; s < styleDeclarations.length; s += 2) { styles.push(styleDeclarations[s]) }
     selectors.forEach((selector) => {
         styleElement.innerHTML += 
-            `${prefix}${selector} {
+            `
+            ${prefix}${selector} {
                 ${styles[selectors.indexOf(selector)]}
-            }`
+            }
+            `
     })
 }  
 async function listenForNetwork(archive) {
