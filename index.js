@@ -453,7 +453,7 @@ function renderMedia(ext, data) {
         code.innerHTML = puredata
         const bodyContents = document.createElement('pre')
         bodyContents.appendChild(code)
-        hljs.highlightBlock(bodyContents)
+        if (ext !== '') hljs.highlightBlock(bodyContents)
         return bodyContents
     } else if (ext === 'md') {
         const md = marked((Buffer(data, 'base64')).toString('utf8'))
