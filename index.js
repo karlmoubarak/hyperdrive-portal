@@ -29,17 +29,17 @@ const SDK = window.datSDK,
         'hyper://fb30c8a724fb93e9e3f0209055453f8a672ff01720a33f8111d76382dbfda28a/', // cristina
         'hyper://5f2e47e66aad6de752f7510413d5861392282d5b3a40073c0f2e5dcc5553ce5d/', // lark
         'hyper://711d0b2c6eb9c180a44b0655a7cec8f0d4bac1a4bdc78bf270d28ae6f09d61a6/', // Ephemereality Capture
+        'hyper://b5a4063b36c7064c10b04ef3434728439cc68a6162a67e31b2eeb92c1b28176e/', // Selby
+        'hyper://4da9e7e45960ea06c311e1e502fc81c46fd310dbd0098f1c7c64d196625cde5b/', // fame
+        'hyper://dfe88b3c04d22b2a29012abb522f70437bb70a3d14075e19a242894a5ba3bba2/', // anniek
+        'hyper://0ad7cfefbc077cafcec21ffeedbbab4efb3190f6a507e2353ca3cf5c9024a942/', // juju
+        'hyper://e70fcd16b6ec6e521857fdab6e26ff158864596e957362f1f5121d2113e0956c/', // danny
         'hyper://5c75520c270afb98a6388701da18d6128ca74b644b22d548ae741e46c3fc2a8c/', // Ben
         'hyper://4aca999260500a596997031be92fdc89ab813b354a1274edf9f76f1ebf70e272/', // Chinouk
         'hyper://07b924285cc326e0ed40dde9429e7aa30fa6ba981e76a93ac70906ddce0872ef/', // Eric
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
         'hyper://ab6ebe69f326f7c06a5bd5788cbced0ba6f1210e92dd5ee2e37635055b584e98/', // kwan
-        'hyper://b5a4063b36c7064c10b04ef3434728439cc68a6162a67e31b2eeb92c1b28176e/', // Selby
-        'hyper://4da9e7e45960ea06c311e1e502fc81c46fd310dbd0098f1c7c64d196625cde5b/', // fame
-        'hyper://dfe88b3c04d22b2a29012abb522f70437bb70a3d14075e19a242894a5ba3bba2/', // anniek
-        'hyper://0ad7cfefbc077cafcec21ffeedbbab4efb3190f6a507e2353ca3cf5c9024a942/', // juju
-        'hyper://e70fcd16b6ec6e521857fdab6e26ff158864596e957362f1f5121d2113e0956c/', // danny
         'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/' // wendy
         ],
       
