@@ -26,6 +26,7 @@
             font-family: caption, sans-serif;
             font-size: 10pt;
             color: grey;
+/*            overflow: hidden;*/
         }
         nav h1 {
             width: 100%;
@@ -41,7 +42,37 @@
             position: sticky;
             top: 0;
             padding: 15px;
-            z-index: 100000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+        }
+        #about {
+            font-size: 9pt;
+            position: absolute;
+            top: 15px;
+            right: 280px;
+            width: 300px;
+            align-self: center;
+            padding: 30px;
+            background: #f0f0f0;
+            border: 0.5px solid rgb(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 0px rgb(0, 0, 0, 0.30);
+            transition: all .3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #about a {
+            color: grey;
+        }
+        #aboutClose {
+            width: 30%;
+            margin-top: 30px;
+            align-self: center;
+        }
+        #about p {
+            margin-bottom: 10px;
         }
         #show {    
             position: absolute; top: 10px; right: 15px;
@@ -49,9 +80,12 @@
             transition: all .5s ease;
         }
         #menu {
-            position: absolute; right: 15px; top: 15px;
+            position: absolute; right: 0px; top: 0px;
             width: 250px;
             transition: all .5s ease;
+            padding: 15px;
+            height: 100vh;
+            overflow: scroll;
         }
         #menu > div {
             background: #f0f0f0;
@@ -73,7 +107,7 @@
             display: flex;
             flex-direction: column;
         }
-        #infoIcon {
+        #aboutIcon {
             font-family: 'jet';
             border: 1px solid rgb(0, 0, 0, 0.5);
             border-radius: 15px;
@@ -84,7 +118,7 @@
             margin-bottom: 5px;
             cursor: pointer;
         }
-        #infoIcon:hover {
+        #aboutIcon:hover {
             background: rgb(0, 0, 0, 0.1);
         }
         button {
@@ -175,7 +209,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         #back {
             flex-wrap: wrap;
@@ -398,6 +432,11 @@
             transition: all 0.3s ease;
             transform-style: preserve-3d;
         }
+        #about.hidden {
+            height: 0;
+            margin: 0;
+            padding: 0;
+        }
         #menu.hidden {
             opacity: 1;
             transform: none;
@@ -420,10 +459,18 @@
 <body>
     <nav>
         <h1>Network Imaginaries</h1>
+        <div id="about" class="hidden">
+            <p>Welcome to the Network Imaginaries Hyperdrive Portal. You are being served from 18 different computers.</p>
+            <p><a target="_blank" href="https://hackersanddesigners.nl/s/Summer_Academy_2020">Network Imaginaries</a> is this years' Hackers & Designers Summer Academy. The Hyperdrives are folders on each of the participants' personal computers that they are serving to the public domain. You can explore and download their files through this portal.</p>
+            <p>We are all in different timezones and our computers are not always online, so if some content does not load, please try again later.</p>
+            <p>By default, your browser is acting as a peer in our network. You are storing our files and serving them to the next visitor. You can vary your storage contribution with the adjacent slider. Please keep this tab open to keep these files online.</p>
+            <p>This network is built with the <a target="_blank" href="https://hypercore-protocol.org/">Hypercore Protocol</a>.</p>
+            <button id="aboutClose">Ok</button>
+        </div>
         <div id="show" class="end">Press the "S" key to toggle the sidebar and the "V" key to switch views.</div>
         <div id="menu">
             <div id="info">
-<!--                <span id="infoIcon">i</span>-->
+                <span id="aboutIcon">i</span>
                 <p class="end">Press the "S" key to toggle the sidebar and the "V" key to switch views.</p>
                 <button id="flip">Grid View</button>
             </div>
@@ -436,7 +483,7 @@
                     <div id="peers">Peers: 0</div>
                     <div>You are seeding: <span id="sizeOutput">0.00 MB</span></div>
                     <input id="sizeSlider" type="range" min="0" max="10000000" value="000000">
-                    <div class="end">Keep this tab open to keep these files online. You can vary your storage contribution with the slider above. If you are having connectivity issues, try refreshing the page or clicking the button below.</div>
+                    <div class="end">You can vary your storage contribution with the slider above. Keep this tab open to keep these files online. If you are having connectivity issues, try refreshing the page or clicking the button below.</div>
                     <button id="retry">Force Reconnect</button>
                 </div>
             </div>

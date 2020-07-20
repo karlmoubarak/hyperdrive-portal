@@ -7,6 +7,9 @@ const SDK = window.datSDK,
     $ = (id) => { return document.getElementById(id) },
 
     menu = $('menu'),
+    aboutIcon = $('aboutIcon'),
+    aboutClose = $('aboutClose'),
+    about = $('about'),
     flip = $('flip'),
     backSide = $('back'),
     frontSide = $('front'),
@@ -85,6 +88,8 @@ document.addEventListener('keydown', () => {
         console.log(sizeSlider.value)
     }
 })
+aboutIcon.addEventListener('click', () => { toggleAbout() })
+aboutClose.addEventListener('click', () => { toggleAbout() })
 flip.addEventListener('click', () => { toggleView() })
 refreshButton.addEventListener('click', () => { forceReconnect() })
 timeSlider.addEventListener('input', () => { initialTime = timeTravel() })
@@ -572,6 +577,13 @@ function toggleView() {
         flip.innerHTML = 'Grid View'
         window.localStorage['view'] = 'front'
     }
+}
+function toggleAbout() {
+    if (about.classList.contains('hidden')) {
+        about.classList.remove('hidden')
+    } else {
+        about.classList.add('hidden')
+    }    
 }
 function roundBytes(value, unit) {
     if (unit == 'KB') { return Math.round((0.001*value)*100)/100 + ' KB' }
