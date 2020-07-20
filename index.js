@@ -77,7 +77,6 @@ flip.addEventListener('click', () => { toggleView() })
 refreshButton.addEventListener('click', () => { forceReconnect() })
 timeSlider.addEventListener('input', () => { initialTime = timeTravel() })
 sizeSlider.addEventListener('change', () => { sizeTravel() })
-//sizeSlider.addEventListener('input', () => { sizeOutput.innerHTML = roundBytes(desiredSize(), 'MB') })
     
 announce(`connecting`, 5000)
       
