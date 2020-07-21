@@ -25,6 +25,7 @@ const SDK = window.datSDK,
     styleElement = document.querySelector('style')
 
     keys = [ 
+        'hyper://5c75520c270afb98a6388701da18d6128ca74b644b22d548ae741e46c3fc2a8c/', // Ben
         'hyper://af71efec1e978a6d665700f1e083f603790cae1cab28dc2df634502a7016688e/', // jeroen
         'hyper://cd19b186566308ca0c47f28b9e70060957be7f09c65da59b140abebcee37988c/', // karl
         'hyper://eed171b9da743ccbf6452722f72a1b14a5b25115594f56c34cc0a848828fe896/', // angeliki
@@ -38,7 +39,6 @@ const SDK = window.datSDK,
         'hyper://dfe88b3c04d22b2a29012abb522f70437bb70a3d14075e19a242894a5ba3bba2/', // anniek
         'hyper://0ad7cfefbc077cafcec21ffeedbbab4efb3190f6a507e2353ca3cf5c9024a942/', // juju
         'hyper://e70fcd16b6ec6e521857fdab6e26ff158864596e957362f1f5121d2113e0956c/', // danny
-        'hyper://5c75520c270afb98a6388701da18d6128ca74b644b22d548ae741e46c3fc2a8c/', // Ben
         'hyper://4aca999260500a596997031be92fdc89ab813b354a1274edf9f76f1ebf70e272/', // Chinouk
         'hyper://07b924285cc326e0ed40dde9429e7aa30fa6ba981e76a93ac70906ddce0872ef/', // Eric
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
@@ -86,7 +86,6 @@ document.addEventListener('keydown', () => {
     else if (event.keyCode === 39) {
         sizeSlider.value += 100000
         sizeTravel()
-        console.log(sizeSlider.value)
     }
 })
 aboutIcon.addEventListener('click', () => { toggleAbout() })
@@ -107,7 +106,7 @@ for (key of keys) {
 async function sync(key) {
     const archive = await Hyperdrive(key, { persist: true })
     await archive.ready()
-    await reallyReady(archive)
+//    await reallyReady(archive)
     archives.push(archive)
     const info = JSON.parse(await archive.readFile('index.json', 'utf8'))
     const dir = await archive.readdir('/')
@@ -118,9 +117,11 @@ async function sync(key) {
         populateFeed(archive, info, feed, '') 
     })
     populateFront(archive, info, '')
-    if (dir.includes('styles.css')) styleItems(archive, info)
     listenForNetwork(archive) 
-//    archive.watch('styles.css', () => { styleItems(archive, info) })
+    if (dir.includes('styles.css')) {
+        styleItems(archive, info)
+        archive.watch('styles.css', () => { styleItems(archive, info) })        
+    }
 }
     
 async function populateFeed(archive, info, feed, dirpath) {
