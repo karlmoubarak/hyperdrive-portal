@@ -29,6 +29,7 @@ const SDK = window.datSDK,
         'hyper://cd19b186566308ca0c47f28b9e70060957be7f09c65da59b140abebcee37988c/', // karl
         'hyper://eed171b9da743ccbf6452722f72a1b14a5b25115594f56c34cc0a848828fe896/', // angeliki
         'hyper://1f2f00ec6ffcc2e7db9d4586b5b80eac73201a6e2c0add4430c4ed13b7ee76c0/', // dianaband
+        'hyper://42445f16ce32b9bfd8dc6bddfd9efe7a18875709acc3bb3ad7301fa1f0a23eb3/', // anja
         'hyper://fb30c8a724fb93e9e3f0209055453f8a672ff01720a33f8111d76382dbfda28a/', // cristina
         'hyper://5f2e47e66aad6de752f7510413d5861392282d5b3a40073c0f2e5dcc5553ce5d/', // lark
         'hyper://711d0b2c6eb9c180a44b0655a7cec8f0d4bac1a4bdc78bf270d28ae6f09d61a6/', // Ephemereality Capture
@@ -43,7 +44,7 @@ const SDK = window.datSDK,
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
         'hyper://ab6ebe69f326f7c06a5bd5788cbced0ba6f1210e92dd5ee2e37635055b584e98/', // kwan
-        'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/' // wendy
+        'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/'  // wendy
         ],
       
     ignoreExt = ['ds_store', 'ignore', 'private'],
