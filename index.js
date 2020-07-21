@@ -106,7 +106,7 @@ for (key of keys) {
 async function sync(key) {
     const archive = await Hyperdrive(key, { persist: true })
     await archive.ready()
-//    await reallyReady(archive)
+    await reallyReady(archive)
     archives.push(archive)
     const info = JSON.parse(await archive.readFile('index.json', 'utf8'))
     const dir = await archive.readdir('/')
