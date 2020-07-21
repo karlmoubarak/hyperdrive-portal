@@ -43,7 +43,7 @@ const SDK = window.datSDK,
         'hyper://07b924285cc326e0ed40dde9429e7aa30fa6ba981e76a93ac70906ddce0872ef/', // Eric
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
-        'hyper://ab6ebe69f326f7c06a5bd5788cbced0ba6f1210e92dd5ee2e37635055b584e98/', // kwan
+        'hyper://86b61fe7d2dc432ba0c0b6a651521135304b0cb68c042a192a10be85519376b4/', // kwan
         'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/'  // wendy
         ],
       
