@@ -67,6 +67,9 @@ timeSlider.setAttribute('max', initialTime)
 timeSlider.value = initialTime
 timeOutput.innerHTML = moment.unix(initialTime).fromNow()
     
+if (window.localStorage['view'] === 'back') toggleView()
+if (window.localStorage['sidebar'] == 0) toggleMenu()
+if (window.localStorage['welcomed'] != 1) toggleAbout()
     
 document.addEventListener('keydown', () => { 
          if (event.keyCode === 86) toggleView()
@@ -585,6 +588,7 @@ function toggleAbout() {
         about.classList.remove('hidden')
     } else {
         about.classList.add('hidden')
+        window.localStorage['welcomed'] = 1
     }    
 }
 function roundBytes(value, unit) {
