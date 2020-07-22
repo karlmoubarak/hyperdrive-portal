@@ -27,7 +27,7 @@ const SDK = window.datSDK,
     keys = [ 
         'hyper://5c75520c270afb98a6388701da18d6128ca74b644b22d548ae741e46c3fc2a8c/', // Ben
         'hyper://af71efec1e978a6d665700f1e083f603790cae1cab28dc2df634502a7016688e/', // jeroen
-        'hyper://cd19b186566308ca0c47f28b9e70060957be7f09c65da59b140abebcee37988c/', // karl
+        'hyper://436fc91f71cceb2ae85d39ef5b40eb3e5dcba6a802a5960c341845f32a6527aa/', // karl
         'hyper://eed171b9da743ccbf6452722f72a1b14a5b25115594f56c34cc0a848828fe896/', // angeliki
         'hyper://1f2f00ec6ffcc2e7db9d4586b5b80eac73201a6e2c0add4430c4ed13b7ee76c0/', // dianaband
         'hyper://42445f16ce32b9bfd8dc6bddfd9efe7a18875709acc3bb3ad7301fa1f0a23eb3/', // anja
