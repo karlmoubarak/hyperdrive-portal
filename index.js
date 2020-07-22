@@ -490,14 +490,14 @@ function renderMedia(ext, data) {
         const bodyContents = document.createElement('embed')
         bodyContents.setAttribute('src', `data:application/pdf;base64, ${data}`)
         return bodyContents
-    } else if ((ext == 'mp4') || (ext == 'mov') || (ext == 'm4a')) {
+    } else if ((ext == 'mp4') || (ext == 'mov')) {
         const video = document.createElement('source')
         const bodyContents = document.createElement('video')
         video.setAttribute('src', `data:video/mp4;base64, ${data}`)
         bodyContents.setAttribute('controls', '')
         bodyContents.appendChild(video)
         return bodyContents
-    } else if ((ext == 'wav') || (ext == 'mp3')) {
+    } else if ((ext == 'wav') || (ext == 'mp3') || (ext == 'm4a')) {
         const audio = document.createElement('source')
         const bodyContents = document.createElement('audio')
         audio.setAttribute('src', `data:audio/wav;base64, ${data}`)
