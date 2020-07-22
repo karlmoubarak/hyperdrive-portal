@@ -40,7 +40,7 @@ const SDK = window.datSDK,
         'hyper://0ad7cfefbc077cafcec21ffeedbbab4efb3190f6a507e2353ca3cf5c9024a942/', // juju
         'hyper://e70fcd16b6ec6e521857fdab6e26ff158864596e957362f1f5121d2113e0956c/', // danny
         'hyper://4aca999260500a596997031be92fdc89ab813b354a1274edf9f76f1ebf70e272/', // Chinouk
-        'hyper://07b924285cc326e0ed40dde9429e7aa30fa6ba981e76a93ac70906ddce0872ef/', // Eric
+        'hyper://81a02db9baf116674bb2075fd24b9f68e451a59b600f2df99a1689eb649ebd4b/', // Eric
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
         'hyper://86b61fe7d2dc432ba0c0b6a651521135304b0cb68c042a192a10be85519376b4/', // kwan
