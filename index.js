@@ -548,7 +548,7 @@ function reallyReady(archive, cb) {
 }
 async function forceReconnect() {
     if (archives[0]) archives.forEach( async(archive) => await archive.close() )
-    localStorage.clear()
+//    localStorage.clear()
     window.location.reload(true)
 }
     
