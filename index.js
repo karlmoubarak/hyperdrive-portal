@@ -332,12 +332,12 @@ async function collapseItem(logItem, feedItem, initialTop, initialLeft) {
     
 async function styleItems(archive, info) {
     console.log(`${info.title} is styling`)
-    const prefix = `.${info.title.split(' ').join('')}`
-    const comments = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, returns = /\r?\n|\r/g, spaces = /\s\s+/g
-    const data = await archive.readFile('/styles.css', 'utf8')
-    const cleandata = data.replace(comments, '').replace(returns, '').replace(spaces, ' ')
-    const styleDeclarations = cleandata.split(/[}{]/).filter(Boolean)
-    const selectors = [], styles = []
+    const prefix = `.${info.title.split(' ').join('')}`,
+          comments = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, returns = /\r?\n|\r/g, spaces = /\s\s+/g,
+          data = await archive.readFile('/styles.css', 'utf8'),
+          cleandata = data.replace(comments, '').replace(returns, '').replace(spaces, ' '),
+          styleDeclarations = cleandata.split(/[}{]/).filter(Boolean),
+          selectors = [], styles = []
     for (s = 0; s < styleDeclarations.length; s += 2) { selectors.push(styleDeclarations[s]) }
     for (s = 1; s < styleDeclarations.length; s += 2) { styles.push(styleDeclarations[s]) }
     selectors.forEach((selector) => {
