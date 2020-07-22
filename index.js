@@ -289,13 +289,15 @@ async function expandItem(logItem, feedItem, archive, initialLeft, initialTop) {
         feedItemBody.innerHTML = ''
         feedItemBody.appendChild(bodyContents) 
     }
-    feedItem.querySelector('.head .close').addEventListener('click', () => { 
+    feedItem.querySelector('.head .close').addEventListener('click', (e) => { 
+        e.stopPropagation()
         collapseItem(logItem, feedItem, initialTop, initialLeft)
     }, true)
     document.addEventListener('keydown', () => { if (event.keyCode === 27) { 
         collapseItem(logItem, feedItem, initialTop, initialLeft)
     } })
-    feedItemPath.addEventListener('click', () => {
+    feedItemPath.addEventListener('click', (e) => {
+        e.stopPropagation()
         console.log('start download')
         const initialPath = feedItemPath.innerHTML
         feedItemPath.innerHTML = waitMessage
@@ -321,7 +323,7 @@ async function expandItem(logItem, feedItem, archive, initialLeft, initialTop) {
 async function collapseItem(logItem, feedItem, initialTop, initialLeft) {
     console.log('collapsing item')
     feedItemBody = feedItem.querySelector('.body')
-    feedItem.querySelector('.head .path').removeEventListener('click', () => {console.log('event removed')})
+//    feedItem.querySelector('.head .path').removeEventListener('click', () => {console.log('event removed')})
     feedItem.classList.remove('expanded')
     await announce('', 800)
     feedItem.style.top = `${initialTop}px`, feedItem.style.left = `${initialLeft}px`
