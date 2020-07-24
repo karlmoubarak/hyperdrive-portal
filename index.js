@@ -184,8 +184,9 @@ function indexFeed(info, feed) {
     })
 }
 function makeFeed(key, info) {
+    const validClass = info.title.replace(/^[^a-z]+|[^\w:.-]+/gi, "")
     const feedTemplate = `
-        <div class='feed ${info.title.split(' ').join('')}' id=${info.title.split(' ').join('')}>
+        <div class='feed ${validClass}' id=${validClass}>
             <div class='header'>
                 <div class='title'><a href="${key}">${info.title}</a></div>
                 <a class='reload'>⟳</a>
@@ -228,9 +229,9 @@ async function makeLogItem(archive, info, path) {
   const stat = await archive.stat(path)
   const logItem = {
     'archive' : archives.indexOf(archive),
-    'author' : info.title.split(' ').join(''),
+    'author' : info.title.replace(/^[^a-z]+|[^\w:.-]+/gi, ""),
     'path' : path,
-    'id' : `a-${info.title.split(' ').join('')}i-${path.substring(1).replace(/[\/\(\)\s\.\|\!\?\$]/g, '-')}`,
+    'id' : `a-${info.title.replace(/^[^a-z]+|[^\w:.-]+/gi, "")}i-${path.substring(1).replace(/[\/\(\)\s\.\|\!\?\$]/g, '-')}`,
     'isDir' : false,
     'ext' : `${ path.includes('.') ? path.split('.').pop().toLowerCase() : '' }`,
     'mtime' : (Date.parse(stat[0].mtime))/1000,
@@ -332,7 +333,7 @@ async function collapseItem(logItem, feedItem, initialTop, initialLeft) {
     
 async function styleItems(archive, info) {
     console.log(`${info.title} is styling`)
-    const prefix = `.${info.title.split(' ').join('')}`,
+    const prefix = `.${info.title.replace(/^[^a-z]+|[^\w:.-]+/gi, "")}`,
           comments = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, returns = /\r?\n|\r/g, spaces = /\s\s+/g,
           data = await archive.readFile('/styles.css', 'utf8'),
           cleandata = data.replace(comments, '').replace(returns, '').replace(spaces, ' '),
