@@ -25,7 +25,6 @@ const SDK = window.datSDK,
     styleElement = document.querySelector('style')
 
     keys = [ 
-        'hyper://5c75520c270afb98a6388701da18d6128ca74b644b22d548ae741e46c3fc2a8c/', // Ben
         'hyper://af71efec1e978a6d665700f1e083f603790cae1cab28dc2df634502a7016688e/', // jeroen
         'hyper://436fc91f71cceb2ae85d39ef5b40eb3e5dcba6a802a5960c341845f32a6527aa/', // karl
         'hyper://eed171b9da743ccbf6452722f72a1b14a5b25115594f56c34cc0a848828fe896/', // angeliki
@@ -44,7 +43,8 @@ const SDK = window.datSDK,
         'hyper://c9201e7f4fe5f1f2e6fa214d817b5566e25f2c874c6e505653ed44e810d0bf8a/', // Stan
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
         'hyper://86b61fe7d2dc432ba0c0b6a651521135304b0cb68c042a192a10be85519376b4/', // kwan
-        'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/'  // wendy
+        'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/', // wendy
+        'hyper://43e47e32097a808954227c1d23068c795ed09e47125db7f9c7bd1cd3eb94399b/' // Ben
         ],
       
     ignoreExt = ['ds_store', 'ignore', 'private'],
