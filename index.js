@@ -44,7 +44,7 @@ const SDK = window.datSDK,
         'hyper://7dc0317665c2057993b1f5cf02d218564120468a9a8b9f1db4a61366ac9171a8/', // Heerko
         'hyper://86b61fe7d2dc432ba0c0b6a651521135304b0cb68c042a192a10be85519376b4/', // kwan
         'hyper://e09eb41993d0f2af0410ea51623ab60a3b809c7823929e9824ad5e0c0d8be05e/', // wendy
-        'hyper://43e47e32097a808954227c1d23068c795ed09e47125db7f9c7bd1cd3eb94399b/' // Ben
+        'hyper://053c09d3b4abf9532e50a0fe6d8a59aa650ca00d50a1183abdae3f5e96809513/' // Ben
         ],
       
     ignoreExt = ['ds_store', 'ignore', 'private'],
