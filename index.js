@@ -33,7 +33,7 @@ const SDK = window.datSDK,
         'hyper://fb30c8a724fb93e9e3f0209055453f8a672ff01720a33f8111d76382dbfda28a/', // cristina
         'hyper://5f2e47e66aad6de752f7510413d5861392282d5b3a40073c0f2e5dcc5553ce5d/', // lark
         'hyper://711d0b2c6eb9c180a44b0655a7cec8f0d4bac1a4bdc78bf270d28ae6f09d61a6/', // Ephemereality Capture
-        'hyper://b5a4063b36c7064c10b04ef3434728439cc68a6162a67e31b2eeb92c1b28176e/', // Selby
+        'hyper://1b518bc8595f898b4072973c8f2a74ce49f4f7497498377ebb1166032108fe8b/', // Selby
         'hyper://4da9e7e45960ea06c311e1e502fc81c46fd310dbd0098f1c7c64d196625cde5b/', // fame
         'hyper://dfe88b3c04d22b2a29012abb522f70437bb70a3d14075e19a242894a5ba3bba2/', // anniek
         'hyper://0ad7cfefbc077cafcec21ffeedbbab4efb3190f6a507e2353ca3cf5c9024a942/', // juju
