@@ -66,10 +66,15 @@
         #about a {
             color: grey;
         }
+        #aboutButtons {
+            margin-top: 30px;
+            width: 100%;
+        }
         #aboutClose {
             width: 30%;
-            margin-top: 30px;
-            align-self: center;
+        }
+        #aboutClone {
+            margin-left: 10px;
         }
         #about p {
             margin-bottom: 10px;
@@ -470,7 +475,10 @@
             <p>We are all in different timezones and our computers are not always online, so if some content does not load, please try again later.</p>
             <p>By default, your browser is acting as a peer in our network. You are storing our files and serving them to the next visitor. You can vary your storage contribution with the adjacent slider. Please keep this tab open to keep these files online.</p>
             <p>This network is built with the <a target="_blank" href="https://hypercore-protocol.org/">Hypercore Protocol</a>.</p>
-            <button id="aboutClose">Ok</button>
+            <div id="aboutButtons">
+                <button id="aboutClose">Ok</button>
+                <a id="aboutClone" target="_blank" href="https://github.com/karlmoubarak/hyperdrive-portal">Clone this website</a>
+            </div>
         </div>
         <div id="show" class="end">Press the "S" key to toggle the sidebar and the "V" key to switch views.</div>
         <div id="menu">
