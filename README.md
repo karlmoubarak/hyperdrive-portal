@@ -4,9 +4,8 @@ Making use of the [Dat SDK](https://github.com/datproject/sdk) to view and seed 
 
 **→ → → { [hyperdrives.hackersanddesigners.nl](https://hyperdrives.hackersanddesigners.nl) } ← ← ←**
 
-<br>
-
-<center>![](loading-scatter.gif)</center>
+<img align="center" src="./loading-scatter.gif" />
+<!--<center>![](loading-scatter.gif)</center>-->
 
 ## How it works
 
