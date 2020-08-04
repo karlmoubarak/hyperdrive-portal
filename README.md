@@ -2,7 +2,7 @@
 
 Making use of the [Dat SDK](https://github.com/datproject/sdk) to view and seed Hyperdrives in the context of a non-Beaker web browser. This was written for the [Hackers & Designers 2020 Summer Academy](https://hackersanddesigners.nl/s/Summer_Academy_2020) as means of documenting and publishing our files during the course of the week.
 
-<span style="text-align:center;">**→ → → { [hyperdrives.hackersanddesigners.nl](https://hyperdrives.hackersanddesigners.nl) } ← ← ←**</span>
+<span align="center">**→ → → { [hyperdrives.hackersanddesigners.nl](https://hyperdrives.hackersanddesigners.nl) } ← ← ←**</span>
 
 <img align="center" src="./loading-scatter.gif" />
 <!--<center>![](loading-scatter.gif)</center>-->
