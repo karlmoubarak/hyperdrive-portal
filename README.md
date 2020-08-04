@@ -51,6 +51,11 @@ Then, change the title, texts, and interface from the [`index.html`](./index.htm
 
 **!!! MORE DETAILED INSTRUCTIONS COMING SOON !!!**
 
+#### To-do
+- [ ] Fragment, clean, test, and debug code
+- [ ] Document functions separately
+- [ ] Provide more screen-grabs
+
 ## Team
 
 Karl Moubarak and the participants of HDSA2020.<br>
