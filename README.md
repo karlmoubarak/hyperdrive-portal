@@ -8,6 +8,8 @@ Making use of the [Dat SDK](https://github.com/datproject/sdk) to view and seed 
 <!--<center>![](loading-scatter.gif)</center>-->
 ![](loading-scatter.gif)
 
+More information on the project and workshop script can be found [here](https://hackersanddesigners.nl/s/Summer_Academy_2020/p/Becoming_a_Server)
+
 ## How it works
 
 1. Multiple people create and serve Hyperdrives from their personal computers. 
